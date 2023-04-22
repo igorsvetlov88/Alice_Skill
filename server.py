@@ -233,9 +233,18 @@ def restaurant(res, req, ses, first=False):
     # TODO: проверить функцию
     # TODO: сделать возможность узнать геолокацию пользователя, не спрашивая напрямую
     rest = ses["restaurant"]
+
     try:
         location = get_location(req)
-        if not rest["orgs"] and location:
+        if check_tokens(["хватит", "достаточно", "нет", "не", "надо"], req):
+            res["response"]["text"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
+                                      f"приготовить что-нибудь другое или пойти ресторан?"
+            res["response"]["tts"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
+                                     f"приготовить что-нибудь другое или пойти ресторан?"
+            reset_smt("recipe", ses)
+            ses["state"] = None
+            res["response"]["buttons"] = actions_buttons.copy()
+        elif not rest["orgs"] and location:
             coords = get_coords(location)
             if coords:
                 rest["orgs"] = get_restaurants(coords)
