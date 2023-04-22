@@ -79,6 +79,10 @@ def rest_ask_btns(url=None):
         {
             "title": choice(["Не, другой надо", "Другой"]),
             "hide": True
+        },
+        {
+            "title": "Хватит",
+            "hide": True
         }
     ]
 

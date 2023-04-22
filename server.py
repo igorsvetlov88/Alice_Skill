@@ -45,6 +45,10 @@ recipe_btns = [
     {
         "title": "Не, другое",
         "hide": True
+    },
+     {
+        "title": "Хватит",
+        "hide": True
     }
 ]
 
@@ -204,6 +208,10 @@ def recipe(res, req, ses):
             },
             {
                 "title": "Не, другое",
+                "hide": True
+            },
+            {
+                "title": "Хватит",
                 "hide": True
             }
         ]
