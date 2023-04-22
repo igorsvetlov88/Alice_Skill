@@ -134,7 +134,7 @@ def get_holidays(dates):  # dates - список дат по типу: ["08.03",
     now_lenght = 98
     for d in dates:
         try:
-            dat = cur.execute("""SELECT definition FROM days WHERE date=?""", d).fetchone()[0]
+            dat = cur.execute("""SELECT definition FROM days WHERE date=?""", (d,)).fetchone()[0]
             if len(dat) + now_lenght < 1024:
                 hols.append(dat)
                 now_lenght += len(dat)
@@ -142,7 +142,7 @@ def get_holidays(dates):  # dates - список дат по типу: ["08.03",
                 break
         except TypeError as error:
             print(error)
-
+    con.close()
     return hols
 
 
