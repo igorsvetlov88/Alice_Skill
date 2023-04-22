@@ -255,7 +255,7 @@ def restaurant(res, req, ses, first=False):
         elif rest["orgs"] and not rest["ask_info"] and not rest["change_rest"]:
             res["response"]["text"] = f"Вы можете пойти в ресторан " \
                                       f"\"{rest['orgs'][rest['i']]['properties']['CompanyMetaData']['name']}\", " \
-                                      f"находящийся по адресу " \ 
+                                      f"находящийся по адресу " \
                                       f"\"{rest['orgs'][rest['i']]['properties']['CompanyMetaData']['address']}\", " \
                                       f"хотите узнать про него побольше или может хотите пойти в другой ресторан? "
             res["response"]["buttons"] = rest_ask_btns(
