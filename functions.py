@@ -140,8 +140,8 @@ def get_holidays(dates):  # dates - список дат по типу: ["08.03",
                 now_lenght += len(dat)
             else:
                 break
-        except TypeError:
-            pass
+        except Exception as error:
+            print('error')
 
     return hols
 
