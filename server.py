@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import json
 from random import choice
 from functions import add_help_btn, check_tokens, get_location, get_coords, get_restaurants, \
-    rest_ask_btns, get_recipe, reset_smt, get_dates, get_facts, get_holidays, get_ingredients
+    rest_ask_btns, get_recipe, reset_smt, get_dates, get_holidays, get_ingredients
 
 app = Flask(__name__)
 sessionStorage = {}
@@ -164,7 +164,15 @@ def holiday(res, req, ses):
 def recipe(res, req, ses):
     # TODO: проверить функцию
     rec = ses["recipe"]
-    if not rec["ask_recipe"] and not rec["say_recipe"]:
+    if check_tokens(["хватит", "достаточно", "нет", "не", "надо"], req):
+        res["response"]["text"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
+                                  f"приготовить что-нибудь другое или пойти ресторан? ({rec['recipe']})"
+        res["response"]["tts"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
+                                 f"приготовить что-нибудь другое или пойти ресторан?"
+        reset_smt("recipe", ses)
+        ses["state"] = None
+        res["response"]["buttons"] = actions_buttons.copy()
+    elif not rec["ask_recipe"] and not rec["say_recipe"]:
         rec["key"], rec["recipe"] = get_recipe()
         res["response"][
             "text"] = f"Как вам {rec['key']}?\nРассказать рецепт или подобрать что-нибудь другое?"
