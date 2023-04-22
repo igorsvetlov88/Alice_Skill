@@ -168,7 +168,7 @@ def holiday(res, req, ses):
 def recipe(res, req, ses):
     # TODO: проверить функцию
     rec = ses["recipe"]
-    if check_tokens(["хватит", "достаточно", "нет", "не", "надо"], req):
+    if check_tokens(["хватит", "достаточно", "нет"], req) or (check_tokens(['не'], req) and check_tokens(['надо'], req)):
         res["response"]["text"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
                                   f"приготовить что-нибудь другое или пойти ресторан?"
         res["response"]["tts"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
@@ -244,7 +244,7 @@ def restaurant(res, req, ses, first=False):
 
     try:
         location = get_location(req)
-        if check_tokens(["хватит", "достаточно", "нет", "не", "надо"], req):
+        if check_tokens(["хватит", "достаточно", "нет"], req) or (check_tokens(['не'], req) and check_tokens(['надо'], req)):
             res["response"]["text"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
                                       f"приготовить что-нибудь другое или пойти ресторан?"
             res["response"]["tts"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
