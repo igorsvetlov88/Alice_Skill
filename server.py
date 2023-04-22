@@ -155,7 +155,7 @@ def holiday(res, req, ses):
             res["response"]["text"] = f"{holidays}!\nПро какую дату вы еще хотите узнать?"
             res['response']['buttons'] = [
                 {
-                    "title": "Нет",
+                    "title": "Хватит",
                     "hide": True
                 }
             ]
