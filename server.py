@@ -3,13 +3,14 @@ import json
 from random import choice
 from functions import add_help_btn, check_tokens, get_location, get_coords, get_restaurants, \
     rest_ask_btns, get_recipe, reset_smt, get_dates, get_holidays, get_ingredients
+import datetime
+
 
 app = Flask(__name__)
 sessionStorage = {}
 
 # TODO: сделать разные варианты ответов на одни и те же вопросы
 # TODO: разобраться с интентами, я так понимаю это что-то нужно, хотя толком и не знаю, что это
-
 
 texts = {"help": ["Задайте мне вопрос \"Где поесть?\", на что я вам скажу где можно перекусить или "
                   "задайте вопрос \"Что мне приготовить\", и я помогу вам подобрать рецепт, "
@@ -90,12 +91,21 @@ def handle_dialog(res, req, user_id):
 
             }
         }
-        res["response"]["text"] = "С добрым утром! Вы хотите узнать какой сегодня праздник, " \
-                                  "что приготовить на завтрак или, может, куда сходить поесть?"
+        hour = datetime.datetime.now().hour
+        if 0 <= hour <= 6:
+            time_of_day = 'Спокойной ночи'
+        elif 7 <= hour <= 12:
+            time_of_day = 'С добрым утром'
+        elif 13 <= hour <= 18:
+            time_of_day = 'Добрый день'
+        elif 19 <= hour <= 24:
+            time_of_day = 'Добрый вечер'
+        res["response"]["text"] = f"{time_of_day}! Вы хотите узнать какой сегодня праздник, " \
+                                  "что вы хотите приготовить или, может, куда сходить поесть?"
         res["response"]["card"] = {"type": "BigImage",
                                    "image_id": "1540737/2ed60101ba34854fddbb",
-                                   "title": "С добрым утром! Вы хотите узнать какой сегодня праздник, "
-                                            "что приготовить на завтрак или, может, куда сходить поесть?"}
+                                   "title": f"{time_of_day}! Вы хотите узнать какой сегодня праздник, "
+                                            "что вы хотите приготовить или, может, куда сходить поесть?"}
         res["response"]["buttons"] = actions_buttons.copy()
         return
     session = sessionStorage[user_id]
@@ -292,7 +302,7 @@ def restaurant(res, req, ses, first=False):
                 restaurant(res, req, ses)
             elif check_tokens(["подходит", "пойдет", "ладно", "этот"], req):
                 res["response"]["text"] = "Приятного аппетита! А не хотите узнать есть ли сегодня " \
-                                          "праздник, приготовить что-нибудь сами или пойти все-таки " \
+                                          "праздник, приготовить что-нибудь самим или пойти все-таки " \
                                           "в другой ресторан?"
                 res["response"]["buttons"] = actions_buttons.copy()
                 ses["state"] = None
