@@ -235,15 +235,7 @@ def restaurant(res, req, ses, first=False):
     rest = ses["restaurant"]
     try:
         location = get_location(req)
-        if check_tokens(["хватит", "достаточно", "нет", "не", "надо"], req):
-            res["response"]["text"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
-                                      f"приготовить что-нибудь другое или пойти ресторан?"
-            res["response"]["tts"] = f"Удачи! А не хотите узнать есть ли сегодня праздник, " \
-                                     f"приготовить что-нибудь другое или пойти ресторан?"
-            reset_smt("recipe", ses)
-            ses["state"] = None
-            res["response"]["buttons"] = actions_buttons.copy()
-        elif not rest["orgs"] and location:
+        if not rest["orgs"] and location:
             coords = get_coords(location)
             if coords:
                 rest["orgs"] = get_restaurants(coords)
@@ -254,10 +246,8 @@ def restaurant(res, req, ses, first=False):
                 texts["bad request"]) + " ") + "А по какому адресу вы сейчас находитесь?"
         elif rest["orgs"] and not rest["ask_info"] and not rest["change_rest"]:
             res["response"]["text"] = f"Вы можете пойти в ресторан " \
-                                      f"\"{rest['orgs'][rest['i']]['properties']['CompanyMetaData']['name']}\", " \
-                                      f"находящийся по адресу " \
-                                      f"\"{rest['orgs'][rest['i']]['properties']['CompanyMetaData']['address']}\", " \
-                                      f"хотите узнать про него побольше или может хотите пойти в другой ресторан? "
+                                      f"\"{rest['orgs'][rest['i']]['properties']['CompanyMetaData']['name']}\", находящийся по адресу " \
+                                      f"\"{rest['orgs'][rest['i']]['properties']['CompanyMetaData']['address']}\", хотите узнать про него побольше или может хотите пойти в другой ресторан?"
             res["response"]["buttons"] = rest_ask_btns(
                 rest['orgs'][rest['i']]['properties']['CompanyMetaData']['url'])
             rest["ask_info"] = True
