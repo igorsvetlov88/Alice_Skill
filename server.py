@@ -101,10 +101,11 @@ def handle_dialog(res, req, user_id):
             time_of_day = 'Добрый день'
         elif 19 <= hour <= 24:
             time_of_day = 'Добрый вечер'
-        res["response"]["text"] = f"{time_of_day}! {texts['can']}"
+        res["response"]["text"] = f"{time_of_day}! {texts['can']}\nЕсли возникнут вопросы, нажмите или скажите " \
+                                  f"\"Помощь\" "
         res["response"]["card"] = {"type": "BigImage",
                                    "image_id": "1533899/77e559aca507b3b13e9d",
-                                   "title": f"{time_of_day}! {texts['can']}"}
+                                   "title": f"{time_of_day}!"}
         res["response"]["buttons"] = actions_buttons.copy()
         return
     session = sessionStorage[user_id]
