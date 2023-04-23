@@ -103,7 +103,7 @@ def handle_dialog(res, req, user_id):
         res["response"]["text"] = f"{time_of_day}! Вы хотите узнать какой сегодня праздник, " \
                                   "что вы хотите приготовить или, может, куда сходить поесть?"
         res["response"]["card"] = {"type": "BigImage",
-                                   "image_id": "937455/217d2991e810e08fa831",
+                                   "image_id": "1533899/77e559aca507b3b13e9d",
                                    "title": f"{time_of_day}! Вы хотите узнать какой сегодня праздник, "
                                             "что вы хотите приготовить или, может, куда сходить поесть?"}
         res["response"]["buttons"] = actions_buttons.copy()
