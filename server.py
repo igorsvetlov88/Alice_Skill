@@ -93,17 +93,17 @@ def handle_dialog(res, req, user_id):
         }
         hour = datetime.datetime.now().hour
         if 0 <= hour <= 6:
-            time_of_day = ['Спокойной ночи', '1030494/a2cd284132e65fd03bcc']
+            time_of_day = 'Спокойной ночи'
         elif 7 <= hour <= 12:
-            time_of_day = ['С добрым утром', '1030494/4147c668cf15446d8361']
+            time_of_day = 'С добрым утром'
         elif 13 <= hour <= 18:
-            time_of_day = ['Добрый день', '997614/77bb60c49a337ad2bbab']
+            time_of_day = 'Добрый день'
         elif 19 <= hour <= 24:
-            time_of_day = ['Добрый вечер', '1540737/6796b162ce7ad7ae0c66']
-        res["response"]["text"] = f"{time_of_day[0]}! Вы хотите узнать какой сегодня праздник, " \
+            time_of_day = 'Добрый вечер'
+        res["response"]["text"] = f"{time_of_day}! Вы хотите узнать какой сегодня праздник, " \
                                   "что вы хотите приготовить или, может, куда сходить поесть?"
-        res["response"]["card"] = {"image_id": time_of_day[1],
-                                   "title": f"{time_of_day[0]}! Вы хотите узнать какой сегодня праздник, "
+        res["response"]["card"] = {"image_id": "937455/217d2991e810e08fa831",
+                                   "title": f"{time_of_day}! Вы хотите узнать какой сегодня праздник, "
                                             "что вы хотите приготовить или, может, куда сходить поесть?"}
         res["response"]["buttons"] = actions_buttons.copy()
         return
