@@ -103,7 +103,7 @@ def handle_dialog(res, req, user_id):
         res["response"]["text"] = f"{time_of_day}! {texts['can']}\n{texts['help']} "
         res["response"]["card"] = {"type": "BigImage",
                                    "image_id": "1533899/77e559aca507b3b13e9d",
-                                   "title": f"{time_of_day}! {texts['can']}\n{texts['help']} "}
+                                   "title": f"{time_of_day}!"}
         res["response"]["buttons"] = actions_buttons.copy()
         return
     session = sessionStorage[user_id]
